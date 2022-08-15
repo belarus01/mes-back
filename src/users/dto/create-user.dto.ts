@@ -6,4 +6,5 @@ export class CreateUserDto{
     lastName: string;
     phone: string;
     position: string;
+    role:string;
 }
