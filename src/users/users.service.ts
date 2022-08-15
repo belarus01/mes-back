@@ -13,11 +13,17 @@ export class UsersService {
         const user = await this.userRepository.create(dto);
         const role = await this.roleService.getRoleByValue(dto.role);
         await user.$set('roles', [role.id]);
+        user.roles = [role];
         return user;
     }
 
     async getAllUsers(){
         const users = await this.userRepository.findAll({include:{all:true}});
         return users;
+    }
+
+    async getUserByLogin(login: string){
+        const user = await this.userRepository.findOne({where:{login}, include:{all:true}});
+        return user;
     }
 }
