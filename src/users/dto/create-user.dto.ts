@@ -1,3 +1,5 @@
+import { Role } from "../role.enum";
+
 export class CreateUserDto{
     login: string;
     password: string;
@@ -6,5 +8,5 @@ export class CreateUserDto{
     lastName: string;
     phone: string;
     position: string;
-    role:string;
+    role:Role;
 }
