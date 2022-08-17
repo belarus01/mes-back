@@ -38,11 +38,11 @@ export class AuthService {
 
 
     private async generateToken(user: User) {
-        console.log(process.env.PRIVATE_KEY);
-       const payload = {login: user.login, id: user.id, role:user.role};
-       return{
-        token: this.jwtService.sign(payload)
-       }
+        const payload = {login: user.login, id: user.id, role:user.role};
+        return{
+            token: this.jwtService.sign(payload, { secret: process.env.PRIVATE_KEY, expiresIn:process.env.EXPIRES_IN
+              })
+        }
     }
 
     

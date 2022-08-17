@@ -3,20 +3,14 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { UsersModule } from '../users/users.module';
 import { JwtModule, JwtService } from '@nestjs/jwt';
-import * as dotenv from 'dotenv';
-dotenv.config(`${process.env.PRIVATE_KEY}`);
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   controllers: [AuthController],
   providers: [AuthService, JwtService],
   imports:[
     UsersModule,
-    JwtModule.register({
-      secret: `${process.env.PRIVATE_KEY}`,
-      signOptions:{
-        expiresIn:'24h'
-      }
-    })
+    JwtModule
   ],
   exports: [
     AuthService,
