@@ -25,7 +25,7 @@ export class AuthService {
         throw new UnauthorizedException({ message: 'Некорректный логин или пароль'});
 
     }
-
+    
     async registration(userDto: CreateUserDto){
         const candidate = await this.userService.getUserByLogin(userDto.login);
         if(candidate){
