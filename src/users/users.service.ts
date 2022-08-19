@@ -24,4 +24,26 @@ export class UsersService {
         const user = await this.userRepository.findOne({where:{login}, include:{all:true}});
         return user;
     }
+
+    async updateUser(userId: number, userDto: CreateUserDto){
+        return await this.userRepository.update(
+            { 
+                login: userDto.login,
+                password: userDto.password,
+                firstName: userDto.firstName,
+                secondName: userDto.secondName,
+                lastName: userDto.lastName,
+                phone: userDto.phone,
+                position: userDto.position,
+                role:userDto.role
+
+            }, 
+            {
+                where:{
+                    id: userId
+                }
+               
+            });
+    }
+
 }
