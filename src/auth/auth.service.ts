@@ -18,6 +18,7 @@ export class AuthService {
 
     private async validateUser(userDto: LoginUserDto) {
         const user = await this.userService.getUserByLogin(userDto.login);
+        
         const passwordEquals = await bcrypt.compare(userDto.password, user.password);
         if (user && passwordEquals){
             return user;
@@ -40,8 +41,12 @@ export class AuthService {
     private async generateToken(user: User) {
         const payload = {login: user.login, id: user.id, role:user.role};
         return{
-            token: this.jwtService.sign(payload, { secret: process.env.PRIVATE_KEY, expiresIn:process.env.EXPIRES_IN
-              })
+            token: this.jwtService.sign(
+                payload, 
+                { 
+                    secret: process.env.PRIVATE_KEY, expiresIn:process.env.EXPIRES_IN
+                }
+            )
         }
     }
 
