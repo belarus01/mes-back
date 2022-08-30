@@ -25,22 +25,28 @@ export class UsersService {
         return user;
     }
 
-    async updateUser(userId: number, userDto: CreateUserDto){
+    async deleteUserById(id: number){
+        const count = await this.userRepository.destroy({where: {id}});
+        console.log(count);
+        return count;
+    }
+
+    async updateUser( user: User){
         return await this.userRepository.update(
             { 
-                login: userDto.login,
-                password: userDto.password,
-                firstName: userDto.firstName,
-                secondName: userDto.secondName,
-                lastName: userDto.lastName,
-                phone: userDto.phone,
-                position: userDto.position,
-                role:userDto.role
+                login: user.login,
+                password: user.password,
+                firstName: user.firstName,
+                secondName: user.secondName,
+                lastName: user.lastName,
+                phone: user.phone,
+                position: user.position,
+                role:user.role
 
             }, 
             {
                 where:{
-                    id: userId
+                    id: user.id
                 }
                
             });
