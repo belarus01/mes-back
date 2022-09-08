@@ -27,7 +27,6 @@ export class UsersService {
 
     async deleteUserById(id: number){
         const count = await this.userRepository.destroy({where: {id}});
-        console.log(count);
         return count;
     }
 
@@ -42,7 +41,6 @@ export class UsersService {
                 phone: user.phone,
                 position: user.position,
                 role:user.role
-
             }, 
             {
                 where:{

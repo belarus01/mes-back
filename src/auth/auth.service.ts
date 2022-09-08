@@ -19,13 +19,13 @@ export class AuthService {
 
     private async validateUser(userDto: LoginUserDto) {
         const user = await this.userService.getUserByLogin(userDto.login);
-        
+        if(!user)
+            throw new UnauthorizedException({ message: 'Пользователь с таким логином не существует'});
         const passwordEquals = await bcrypt.compare(userDto.password, user.password);
         if (user && passwordEquals){
             return user;
         }
-        throw new UnauthorizedException({ message: 'Некорректный логин или пароль'});
-
+        throw new UnauthorizedException({ message: 'Некорректный пароль'});
     }
     
     async registration(userDto: CreateUserDto){
@@ -37,7 +37,6 @@ export class AuthService {
         const user = await this.userService.createUser({...userDto, password: hashPassword});
         return this.generateToken(user);
     }
-
 
     private async generateToken(user: User) {
         const payload = {login: user.login, id: user.id, role:user.role};
