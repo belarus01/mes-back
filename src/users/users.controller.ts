@@ -15,6 +15,8 @@ export class UsersController {
 
     @Post()
     create(@Body() userDto : CreateUserDto){
+        console.log("controller");
+        console.log(userDto);
         return this.userService.createUser(userDto);
     }
 
@@ -32,17 +34,18 @@ export class UsersController {
         return this.userService.getUserByLogin(login);
     }
 
-    @Roles(Role.Admin)
+    @Roles(Role.Syperadmin)
     @UseGuards(RolesGuard)
     @Delete('/:id')
     deleteUserById(@Param('id') id: number){
         return this.userService.deleteUserById(id);
     }
 
-    @Roles(Role.Admin)
+    @Roles(Role.Syperadmin)
     @UseGuards(RolesGuard)
     @Put()
     updateUser(@Body() user: User){
+        console.log(user);
         return this.userService.updateUser(user);
     }
 
